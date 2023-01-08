@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+$ yarn add crypto-portfolio-viewer
+$ npm install crypto-portfolio-viewer --save
+
+<html>
+<body>
+
+/* ----- CommonJS ----- */
+<script>
+  const {
+    getPortfolio,
+    printPortfolioNicely,   // optional
+  } = require('crypto-portfolio-viewer');
+
+  /* ----- ES modules ----- */
+  import {
+    getPortfolio,
+    printPortfolioNicely,   // optional
+  } from 'crypto-portfolio-viewer';
+
+  /* ------eth and erc20 assets-----*/
+  const addresses = [
+    '0x0000000000000000000000000000000000011111',
+    '0x00000000000000000000000000000000000fffff',
+    // ......
+  ];
+
+  (async () => {
+    const portfolio = await getPortfolio({ addresses });
+    printPortfolioNicely(portfolio);
+  })();
+
+  /*---exchange assets---*/
+    const keys = {
+    binance: {
+      apiKey: "xxxxxxxxxx",
+      secret: "yyyyyyyyyy"
+    },
+    ftx: {
+      apiKey: "aaaaaaaaaa",
+      secret: "bbbbbbbbbb",
+    },
+    // ......
+  };
+
+  (async () => {
+    const portfolio = await getPortfolio({ keys });
+    printPortfolioNicely(portfolio);
+  })();
+
+  /*---any other assets---*/
+    const othertokens = {
+    "BTC": [8.5],         // in mysterious wallet
+    "BNB": [200],         // in BSC
+    "ETH": [10, 30],      // uni-LP, sushi-LP
+    "USDT": [
+      1000,               // borrowed by Alex
+      2000,               // borrowed by Kate
+      5000,               // my mining machine's value
+        ],
+      // ......
+    };
+
+    (async () => {
+      const portfolio = await getPortfolio({ othertokens });
+      printPortfolioNicely(portfolio);
+    })();
+
+    </script>
+  </body>
+</html>
